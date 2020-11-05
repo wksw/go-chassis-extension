@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/go-chassis/go-chassis/core/common"
-	"github.com/go-chassis/go-chassis/core/handler"
-	"github.com/go-chassis/go-chassis/core/invocation"
-	"github.com/go-chassis/go-chassis/core/registry"
-	"github.com/go-chassis/go-chassis/core/server"
-	"github.com/go-chassis/go-chassis/pkg/runtime"
-	"github.com/go-chassis/go-chassis/pkg/util/iputil"
+	"github.com/go-chassis/go-chassis/v2/core/common"
+	"github.com/go-chassis/go-chassis/v2/core/handler"
+	"github.com/go-chassis/go-chassis/v2/core/invocation"
+	"github.com/go-chassis/go-chassis/v2/core/registry"
+	"github.com/go-chassis/go-chassis/v2/core/server"
+	"github.com/go-chassis/go-chassis/v2/pkg/runtime"
+	"github.com/go-chassis/go-chassis/v2/pkg/util/iputil"
 	"github.com/go-mesh/openlogging"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -67,13 +67,13 @@ func New(opts server.Options) server.ProtocolServer {
 		}
 		inv := Request2Invocation(ctx, req, info)
 		var r *invocation.Response
-		c.Next(inv, func(ir *invocation.Response) error {
+		c.Next(inv, func(ir *invocation.Response) {
 			if ir.Err != nil {
-				return ir.Err
+				return
 			}
 			ir.Result, ir.Err = handle(ctx, req)
 			r = ir
-			return ir.Err
+			return
 		})
 		return r.Result, r.Err
 	}
