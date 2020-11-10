@@ -11,6 +11,6 @@ require (
 	google.golang.org/grpc v1.29.1
 )
 
-replace (
+// replace (
 	// github.com/go-chassis/go-chassis/v2 => ../go-chassis
-)
+// )
